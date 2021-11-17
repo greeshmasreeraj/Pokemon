@@ -46,6 +46,7 @@ I would add the following featues as well if this API is going to be used in a p
 <li> Implement loggers - Logs are key part to monitor the customer journey as well as that helps in improving the product in the next phases. I would implement a logging mechanisms by using a logger class from which all the activities and errors will be saved into a mongo database collection/s. Since it's mongo, the logs doesnt need to be in certain format and can be json format and for APIs, that's very beneficial.</li>
 <li>Implement some error monitoring mechanism to get notifications to the dev team if anything unexpected or error happened on any part of the product. It helps to fix the issue at the earliest</li>
   <li>Can add integration tests as well </li>
+  <li>The repo will be private  :) </li>
 </ul>
 
   
