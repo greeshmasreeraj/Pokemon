@@ -5,8 +5,8 @@ namespace Truelayer.Utils
     public class Consts
     {
         #region pokemondetails
-        public const string YODA = "yoda.json";
-        public const string SHAKESPEARE = "shakespeare.json";
+        public const string YODA = "yoda";
+        public const string SHAKESPEARE = "shakespeare";
         public const string CAVE = "cave";
         #endregion
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Linq;
 using Truelayer.Models;
@@ -47,7 +48,7 @@ namespace Truelayer.Services
                                 else
                                 {
                                     //do shakespeare translation
-                                    translation = DoTranslation(Consts.SHAKESPEARE, pokemon.description);
+                                    translation = DoTranslation(Consts.SHAKESPEARE, pokemon.description); 
                                 }
                                 pokemon.description = translation;
                             }
@@ -140,12 +141,27 @@ namespace Truelayer.Services
         {
             try
             {
-                string translated =desc;
-                dynamic data = DoAPICall(_config["Translation_API_Root"], type + "?text=" + desc);
-                if (data != null)
+                string translated = desc; //sometimes the API call may have exceeded the per hour request. then use the english desc as the translated one. also for any reason the transaltion hasn't happened, then also use the english desc 
+
+                var httpClient = new HttpClient()
                 {
-                    translated = data.contents.translated;
+                    BaseAddress = new Uri(_config["Translation_API_Root"])
+                };
+                string url = httpClient.BaseAddress + type;
+                Translation translation = new Translation
+                { text = desc };
+
+                string contentJson = System.Text.Json.JsonSerializer.Serialize(translation);
+
+                var result = httpClient.PostAsync(url, new StringContent(contentJson, Encoding.UTF8, "application/json")).Result;
+                if(result.IsSuccessStatusCode)
+                {
+                    var responseContent = result.Content.ReadAsStringAsync().Result;
+                    dynamic data = JObject.Parse(responseContent);
+                    if(data!=null)
+                        translated = data.translated;
                 }
+
                 return translated;
             }
             catch(Exception ex)
@@ -165,7 +181,7 @@ namespace Truelayer.Services
                 };
                 string url = httpClient.BaseAddress + urlPath;
                 var result = httpClient.GetAsync(url).Result;
-                if (result.IsSuccessStatusCode)
+                if (result.IsSuccessStatusCode)   
                 {
                     var responseContent = result.Content.ReadAsStringAsync().Result;
 
