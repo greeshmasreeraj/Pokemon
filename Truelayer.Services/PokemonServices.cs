@@ -159,7 +159,7 @@ namespace Truelayer.Services
                     var responseContent = result.Content.ReadAsStringAsync().Result;
                     dynamic data = JObject.Parse(responseContent);
                     if(data!=null)
-                        translated = data.translated;
+                        translated = data.contents.translated;
                 }
 
                 return translated;
