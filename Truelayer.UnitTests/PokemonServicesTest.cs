@@ -75,19 +75,21 @@ namespace Truelayer.UnitTests
         }
 
         [Test]
-        [TestCase("mewtwo")]
-        public void GetPokemon(string name)
+        [TestCase("mewtwo" ,true)]
+        [TestCase("mewtwo", false)]
+        public void GetPokemon(string name, bool doTranslation)
         {
-            Wrapper<Pokemon> pokemon = pokemonServices.GetPokemon(name,false);
+            Wrapper<Pokemon> pokemon = pokemonServices.GetPokemon(name,doTranslation);
             Assert.AreEqual(Consts.SUCCESS, pokemon.Status);  //we have got a pokemon
 
         }
 
         [Test]
-        [TestCase("random")]
-        public void NoPokemon(string name)
+        [TestCase("random" , true)]
+        [TestCase("random", false)]
+        public void NoPokemon(string name,bool doTranslation)
         {
-            Wrapper<Pokemon> pokemon = pokemonServices.GetPokemon(name, false);
+            Wrapper<Pokemon> pokemon = pokemonServices.GetPokemon(name, doTranslation);
             Assert.AreEqual(Consts.FAIL, pokemon.Status);  //we have not got a pokemon
 
         }

@@ -11,12 +11,14 @@ using static Truelayer.Utils.Generic;
 
 namespace Truelayer.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("[controller]")]
     [ApiController]
     public class PokemonController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get(string name)
+
+       [Route("{name}")]
+       [HttpGet]
+        public ActionResult<string> Get(string name)
         {
             try
             {
@@ -32,8 +34,9 @@ namespace Truelayer.API.Controllers
             }
         }
 
+        [Route("[action]/{name}")]
         [HttpGet]
-        public IActionResult GetWithTranslation(string name)
+        public IActionResult Translated(string name)
         {
             try
             {
