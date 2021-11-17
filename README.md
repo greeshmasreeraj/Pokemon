@@ -19,6 +19,7 @@ Sample Response:
  <hr> Sample Request:</hr>
   HTTPGET  https://localhost:44380/pokemon/translated/ditto
  
+ Sample Response:
   {
   "name": "ditto",
   "description": "When it encounters another Ditto, it will move\nfaster than normal to duplicate that opponent exactly.",
